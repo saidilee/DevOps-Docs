@@ -1,4 +1,20 @@
-# 2. Git
+## Connect with Me
+
+- **YouTube**: [Watch and Learn on YouTube](https://www.youtube.com/watch?v=6xsKwaMETAQ)  
+- **LinkedIn**: [Connect with me on LinkedIn](https://www.linkedin.com/in/ashokkumar-devops13/)  
+- **TopMate**: [Support or Consult on TopMate](https://topmate.io/ashok_kumar)  
+
+## Support This Project
+
+If you find this content helpful:
+- **Like** the [YouTube video](https://www.youtube.com/watch?v=6xsKwaMETAQ) for more such tutorials.
+- **Like** the [YouTube video](https://www.youtube.com/watch?v=rxb9YWyL8kE) for more such tutorials.
+- **Star** this GitHub repository to get the latest updates.
+
+
+
+
+# Git
 
 ### **1. Setup and Configuration**
 
