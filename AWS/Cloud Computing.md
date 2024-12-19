@@ -1,4 +1,4 @@
-# AWS Training Overview
+# AWS Overview
 
 ## 1. Introduction to Cloud Computing
 
