@@ -18,7 +18,7 @@
 ### **Types:**  
 - **Application Load Balancer (ALB):** Operates at Layer 7 (HTTP/HTTPS).  
 - **Network Load Balancer (NLB):** Operates at Layer 4 (TCP/UDP).  
-- **Gateway Load Balancer (GLB):** Facilitates third-party virtual appliances.  
+- **Classic Load Balancer:** Not recommended now.  
 
 ### **Load Balancers - Demo**  
 1. Create an ALB and attach target groups.  
