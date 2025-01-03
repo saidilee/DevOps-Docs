@@ -1,6 +1,6 @@
 # AWS Networking Concepts and Demos
 
-## **NACLs & Security Gropus**  
+## **NACLs & Security Groups**  
 **Network Access Control Lists (NACLs)** provide stateless, layer-level security for subnets within a VPC.  
 
 - They control inbound and outbound traffic at the subnet level.  
