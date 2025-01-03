@@ -1,6 +1,6 @@
 # AWS Networking Concepts and Demos
 
-## **NACLs**  
+## **NACLs & Security Gropus**  
 **Network Access Control Lists (NACLs)** provide stateless, layer-level security for subnets within a VPC.  
 
 - They control inbound and outbound traffic at the subnet level.  
@@ -9,6 +9,17 @@
 - Operate at the subnet level.  
 - Support allow and deny rules.  
 - Rules are evaluated in numerical order.  
+
+## **Security Groups**
+
+
+- They operate at the instance level, controlling traffic to and from specific resources.
+### ** Key Features:**
+**Instance-Level Operation**: Security groups are assigned directly to instances, allowing for granular control over traffic to individual resources. 
+
+
+- Stateful Nature: They are stateful, meaning that if an inbound request is allowed, the corresponding outbound response is automatically permitted, and vice versa. 
+- Allow Rules Only: Security groups support only allow rules; you cannot create deny rules. This ensures that only explicitly permitted traffic is allowed. 
 
 ---
 
