@@ -1,4 +1,4 @@
-
+```bash
 Install Trivy on Debian/Ubuntu
 Follow the steps below to install Trivy, a vulnerability scanner for containers and other artifacts, on a Debian-based or Ubuntu-based system.
 Step 1: Install Prerequisites
@@ -16,3 +16,4 @@ Check the Trivy version to confirm it was installed successfully:
 trivy --version
 
 You are now ready to use Trivy for vulnerability scanning.
+```
