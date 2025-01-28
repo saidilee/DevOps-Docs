@@ -1,5 +1,6 @@
-### **Migration of E-Commercec Application to Cloud**
-
+### ***Migration of E-Commercec Application to Cloud***
+===========================================================
+===========================================================
 Migrating an application as large and complex as Amazon’s e-commerce platform to AWS is an enormous and multi-phase project. Amazon itself is a distributed system with thousands of microservices, globally distributed traffic, multiple data centers, and critical dependencies on various components. Such a migration requires rigorous planning, collaboration, and execution.
 
 Here’s how the migration process for a complex application like **Amazon** might look:
