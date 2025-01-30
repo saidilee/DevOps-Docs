@@ -70,7 +70,7 @@ Explain each of the core components with examples:
 - Adds an extra layer of security.
 - Requires a password and a generated code from an MFA device.
 
-### **3. IAM Best Practices (10 minutes)**
+### **3. IAM Best Practices**
 
 Share actionable security tips:
 
