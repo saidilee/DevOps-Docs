@@ -1,4 +1,4 @@
-### **Terraform **
+### Terraform
 
 
 ## 1. Introduction to Terraform
