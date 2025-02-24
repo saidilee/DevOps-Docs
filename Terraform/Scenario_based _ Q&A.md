@@ -251,3 +251,175 @@ resource "aws_s3_bucket" "example" {
 }
 
 ```
+### **9. Scenario: Handling Terraform State Locking Issues**
+
+**Question:** Your team is using Terraform with remote state in S3. A team member’s Terraform run failed, leaving the state locked. How do you resolve this issue?
+
+**Answer:**
+
+Terraform automatically locks the state in DynamoDB when using `terraform { backend "s3" { } }`. If a lock persists, run:
+
+```
+
+terraform force-unlock <LOCK_ID>
+
+```
+
+Use `terraform state list` and `terraform state show` to verify the state before unlocking.
+
+---
+
+### **10. Scenario: Rolling Back a Failed Terraform Deployment**
+
+**Question:** Your Terraform apply modified resources incorrectly, causing an outage. How can you quickly roll back to the previous state?
+
+**Answer:**
+
+1. If you have a previous state file stored remotely (S3, Terraform Cloud), restore it:
+    
+    ```
+    
+    terraform state pull > backup.tfstate
+    terraform state push backup.tfstate
+    
+    ```
+    
+2. Revert the incorrect code and apply Terraform again.
+3. If necessary, manually restore critical resources before running Terraform apply.
+
+---
+
+### **11. Scenario: Dynamic Resource Scaling with Terraform Modules**
+
+**Question:** Your infrastructure requires different EC2 instance types based on environment (`dev`, `prod`). How can you dynamically assign instance types in a Terraform module?
+
+**Answer:**
+
+Use `terraform.tfvars` or a map inside `variables.tf`:
+
+```hcl
+
+variable "instance_type_map" {
+  type = map(string)
+  default = {
+    dev  = "t2.micro"
+    prod = "t3.large"
+  }
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-123456"
+  instance_type = var.instance_type_map[var.environment]
+}
+
+```
+
+Pass `environment = "prod"` in Terraform variables to get the correct instance type.
+
+### **12. Scenario: Managing Secrets Securely in Terraform**
+
+**Question:** Your Terraform code requires AWS credentials. How do you securely manage these secrets without hardcoding them?
+
+**Answer:**
+
+- **Use AWS Secrets Manager** and retrieve secrets dynamically:
+
+```hcl
+
+data "aws_secretsmanager_secret_version" "db_creds" {
+  secret_id = "my-db-creds"
+}
+
+resource "aws_db_instance" "db" {
+  username = jsondecode(data.aws_secretsmanager_secret_version.db_creds.secret_string)["username"]
+  password = jsondecode(data.aws_secretsmanager_secret_version.db_creds.secret_string)["password"]
+}
+
+```
+
+- Alternatively, use Terraform **variables** with environment variables (`TF_VAR_secret`).
+
+---
+
+### **13. Scenario: Managing Large Terraform State Efficiently**
+
+**Question:** Your Terraform state file is growing too large, causing slow performance. How can you manage it efficiently?
+
+**Answer:**
+
+- **Use Terraform State Splitting:** Separate resources into multiple state files using different workspaces or backends.
+- **Enable Terraform State Locking:** Store state in **S3 with DynamoDB** to prevent concurrency issues:
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state"
+    key            = "prod/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-lock"
+  }
+}
+
+```
+
+- **Use Terraform Workspaces** to isolate environments (`terraform workspace new dev`).
+
+---
+
+### **14. Scenario: Auto-Scaling Worker Nodes in EKS**
+
+**Question:** Your Kubernetes cluster runs on AWS EKS. How do you configure Terraform to auto-scale worker nodes dynamically?
+
+**Answer:**
+
+- Use **AWS Auto Scaling Groups** with Terraform:
+
+```hcl
+
+resource "aws_autoscaling_group" "eks_nodes" {
+  min_size         = 2
+  max_size         = 10
+  desired_capacity = 3
+
+  tag {
+    key                 = "kubernetes.io/cluster/my-cluster"
+    value               = "owned"
+    propagate_at_launch = true
+  }
+}
+
+```
+
+- Combine it with **Cluster Autoscaler** to adjust nodes dynamically.
+
+---
+
+### **15. Scenario: Avoiding Resource Recreation in Terraform**
+
+**Question:** You updated an EC2 instance type, but Terraform wants to **destroy and recreate** it instead of modifying it in-place. How do you prevent this?
+
+**Answer:**
+
+- Use the **`ignore_changes`** lifecycle rule to keep the existing resource:
+
+```hcl
+
+resource "aws_instance" "example" {
+  ami           = "ami-123456"
+  instance_type = "t2.micro"
+
+  lifecycle {
+    ignore_changes = [instance_type]
+  }
+}
+
+```
+
+- If modification is required, **manually update it** outside Terraform, then import the changes using:
+    
+    ```
+    sh
+    CopyEdit
+    terraform import aws_instance.example i-1234567890abcdef
+    
+    ```
