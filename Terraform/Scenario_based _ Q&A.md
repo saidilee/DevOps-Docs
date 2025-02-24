@@ -100,7 +100,7 @@ Use a Terraform validation rule in the variables.tf file to restrict instance ty
     condition     = contains(["t2.micro"], var.instance_type)
     error_message = "Only t2.micro instance type is allowed."
   }
-}
+    }
     
     ```
     
