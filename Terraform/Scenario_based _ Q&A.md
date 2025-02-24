@@ -83,28 +83,28 @@ resource "aws_instance" "example" {
 
 ### **4. Scenario: Enforcing Terraform Security Policies**
 
-**Question:** Your company requires that all S3 buckets be private and encrypted. How do you enforce this across multiple Terraform projects?
+**Question:** Your company wants to ensure that only t2.micro instances are used to control AWS costs. How do you enforce this in Terraform?
 
 **Answer:**
 
-Use **Sentinel or OPA (Open Policy Agent)** with Terraform Cloud or Terraform Enterprise.
-
+Use a Terraform validation rule in the variables.tf file to restrict instance types.
 - Example **OPA policy** to enforce S3 encryption:
     
     ```
     
-    package terraform.s3
-    
-    deny[msg] {
-      some i
-      input.resource_changes[i].type == "aws_s3_bucket"
-      not input.resource_changes[i].change.after.server_side_encryption_configuration
-      msg := "S3 bucket must have server-side encryption enabled"
-    }
+   variable "instance_type" {
+  description = "AWS EC2 instance type"
+  type        = string
+
+  validation {
+    condition     = contains(["t2.micro"], var.instance_type)
+    error_message = "Only t2.micro instance type is allowed."
+  }
+}
     
     ```
     
-- This blocks non-compliant Terraform runs.
+- This prevents users from applying Terraform with non-approved instance types.
 
 ---
 
