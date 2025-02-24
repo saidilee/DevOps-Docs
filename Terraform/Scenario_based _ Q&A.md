@@ -88,7 +88,7 @@ resource "aws_instance" "example" {
 **Answer:**
 
 Use a Terraform validation rule in the variables.tf file to restrict instance types.
-- Example **OPA policy** to enforce S3 encryption:
+- Example 
     
     ```
     
