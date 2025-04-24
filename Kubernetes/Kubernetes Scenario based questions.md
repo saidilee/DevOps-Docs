@@ -22,26 +22,6 @@ If you find this content helpful:
 - Set `maxUnavailable` to `0` and `maxSurge` to a higher value.
 - Ensure readiness probes are correctly configured to verify pod readiness before marking it as available.
 
-  apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-app
-spec:
-  replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
-  template:
-    metadata:
-      labels:
-        app: my-app
-    spec:
-      containers:
-        - name: nginx
-          image: nginx
-
 
 ## Scenario 2: Pending Pods Due to Node Constraints
 
